@@ -3,6 +3,9 @@
   padding: 0;
   box-sizing: border-box;
 }
+html, body {
+  height: 100%;
+}
 
 body{
   font-family: sans-serif;
@@ -11,10 +14,12 @@ body{
 .App {
   margin: 10px auto;
   width: 200px;
-  text-align: center;
 }
 
 .item-div{
+  padding: 20px 5px;
   border: 1px solid black;
   margin: 2px;
+  text-align: left;
+  font-size: 12px;
 }

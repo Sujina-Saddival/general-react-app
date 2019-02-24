@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import Card from './components/Card';
 import './App.css';
 
 const Item = ({item}) => {
@@ -20,7 +20,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-       { this.state.items.map( item => <Item item={item} />) }
+       <Card text='sap' />
       </div>
     );
   }
