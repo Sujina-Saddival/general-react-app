@@ -1,4 +1,6 @@
-const ROOT_API_URL = 'http://localhost:8080';
+const ROOT_API_URL = process.env.REACT_APP_ROOT_PATH;
+/* global fetch */
+debugger
 
 export const api = {
   get: (path) => {

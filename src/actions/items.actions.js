@@ -10,21 +10,22 @@ const requestItems = () => {
   }
 }
 
-const itemListedSuccess = (resp) => {
-  return {
-    type: ITEMS_LISTED_SUCCESS,
-    resp,
-  }
-}
-
-const itemListedFailure = (items) => {
+const itemListedSuccess = (items) => {
   return {
     type: ITEMS_LISTED_SUCCESS,
     items,
   }
 }
 
+const itemListedFailure = (error) => {
+  return {
+    type: ITEMS_LISTED_SUCCESS,
+    error,
+  }
+}
+
 export const listItems = () => dispatch => {
+  debugger
   dispatch(requestItems());
   return api.get('/list')
   .then(resp => {

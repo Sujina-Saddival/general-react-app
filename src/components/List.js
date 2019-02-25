@@ -3,7 +3,8 @@ import {
   SortableContainer,
   SortableElement,
   arrayMove,
-} from 'react-sortable-hoc';
+}
+from 'react-sortable-hoc';
 import { connect } from 'react-redux';
 import { listItems } from '../actions/items.actions';
 
@@ -21,7 +22,7 @@ const SortableList = SortableContainer(({ items }) => {
 
 class List extends Component {
 
-  componentDidMount(){
+  componentDidMount() {
     const { listItems } = this.props;
     listItems();
   }
@@ -40,7 +41,8 @@ class List extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return state;
+  const { items } = state.items;
+  return { items };
 }
 
 export default connect(mapStateToProps, { listItems })(List);
