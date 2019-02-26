@@ -16,10 +16,23 @@ body{
   width: 200px;
 }
 
+.App h4 {
+  text-align: center;
+}
+
+.input-div input {
+  width: 80%;
+}
+
+.input-div button {
+  width: 20%;
+}
+
 .item-div{
   padding: 20px 5px;
   border: 1px solid black;
   margin: 2px;
   text-align: left;
   font-size: 12px;
+  cursor:pointer;
 }
