@@ -1,26 +1,54 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {Component} from 'react';
+import {render} from 'react-dom';
+import {sortableContainer, sortableElement} from 'react-sortable-hoc';
+import arrayMove from 'array-move';
+
+const SortableItem = sortableElement(({value}) => <li>{value}</li>);
+
+const SortableContainer = sortableContainer(({children}) => {
+  return <div>{children}</div>;
+});
 
 class App extends Component {
+  state = {
+    collections: [['a', 'b', 'c'], [0, 1, 2, 3, 4], [0, 1, 2], ['aaa','bbb']],
+  };
+
+  onSortEnd = ({oldIndex, newIndex, collection}) => {
+    this.setState(({collections}) => {
+      const newCollections = [...collections];
+
+      newCollections[collection] = arrayMove(
+        collections[collection],
+        oldIndex,
+        newIndex,
+      );
+
+      return {collections: newCollections};
+    });
+  };
+
   render() {
+    const {collections} = this.state;
+
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <SortableContainer onSortEnd={this.onSortEnd.bind(this)}>
+        {collections.map((items, index) => (
+          <React.Fragment key={index}>
+            <strong>LIST {index}</strong>
+            <ul>
+              {items.map((item, i) => (
+                <SortableItem
+                  key={item}
+                  value={`Item ${item}`}
+                  index={i}
+                  collection={index}
+                />
+              ))}
+            </ul>
+          </React.Fragment>
+        ))}
+      </SortableContainer>
     );
   }
 }
