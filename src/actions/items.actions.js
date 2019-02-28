@@ -78,13 +78,19 @@ export const updateItemsArray = (items) => {
   }
 }
 
-export const updateSortOrder = (pIndex, nIndex, items) => dispatch => {
+export const updateSortOrder = (pIndex, nIndex, selectedItem, items) => dispatch => {
+  debugger
   const payload = {
     old_sort_number: pIndex,
-    new_sort_number: nIndex
+    new_sort_number: nIndex,
+    selected_item_id: selectedItem.id
   }
   dispatch(updateItemsArray(items));
   return api.put('/updateItemsOrder', payload)
-    .then()
-    .catch()
+    .then((resp) => {
+      debugger
+    })
+    .catch((error) => {
+      debugger
+    })
 }

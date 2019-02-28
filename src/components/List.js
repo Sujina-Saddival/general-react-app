@@ -8,7 +8,7 @@ from 'react-sortable-hoc';
 import { connect } from 'react-redux';
 import { listItems, createItem, updateSortOrder } from '../actions/items.actions';
 
-const SortableItem = SortableElement(({ value }) => <div className='item-div'>{value.name}</div>);
+const SortableItem = SortableElement(({ value, SelectedItem }) => <div className='item-div'>{value.name}</div>);
 
 const SortableList = SortableContainer(({ items }) => {
   return (
@@ -22,7 +22,7 @@ const SortableList = SortableContainer(({ items }) => {
 
 class List extends Component {
 
-  constructor(props){
+  constructor(props) {
     super(props);
     this.addItemButtonClick = this.addItemButtonClick.bind(this);
     this.inputChange = this.inputChange.bind(this);
@@ -37,30 +37,37 @@ class List extends Component {
   }
 
   inputChange = (event) => {
-    this.setState({inputValue: event.target.value});
+    this.setState({ inputValue: event.target.value });
   }
 
   addItemButtonClick = (event) => {
     const { createItem, listItems, items } = this.props;
-    debugger
-    const sort_number = items[items.length -1] ? (items[items.length -1].sort_number + 1) : 0
-    debugger
+    const sort_number = items[items.length - 1] ? (items[items.length - 1].sort_number + 1) : 0
     createItem(this.state.inputValue, sort_number)
-    .then(() => listItems());
+      .then(() => listItems());
   }
 
   onSortEnd = ({ oldIndex, newIndex }) => {
-    const {items, updateSortOrder} = this.props;
+    const { items, updateSortOrder } = this.props;
+    // const selectedItem = [...items].filter(item => {
+    //   debugger
+    //     if (item.sort_number === oldIndex) {
+    //       debugger
+    //       return item
+    //     };
+    //   });
+    debugger
+    if (oldIndex === newIndex) return;
     debugger
     const newItemArray = arrayMove([...items], oldIndex, newIndex);
     debugger
-    updateSortOrder( oldIndex, newIndex, newItemArray);
+    updateSortOrder(oldIndex, newIndex, selectedItem[0], newItemArray);
     debugger
   };
 
   render() {
-      const { items } = this.props;
-      return (
+    const { items } = this.props;
+    return (
       <Fragment>
         <h4>ToDo</h4>
         <div className='input-div'>
@@ -69,7 +76,7 @@ class List extends Component {
         </div>
         <SortableList items={items} onSortEnd={this.onSortEnd.bind(this)} />
       </Fragment>
-      )
+    )
   }
 }
 
