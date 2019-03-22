@@ -2,16 +2,38 @@
   "name": "general-react-app",
   "version": "0.1.0",
   "private": true,
+  "main": "public/electron.js",
+  "author": "Captain Electron",
+  "description": "integrated electron",
   "dependencies": {
+    "electron-devtools-installer": "^2.2.4",
+    "electron-is-dev": "^1.0.1",
     "react": "^16.8.2",
     "react-dom": "^16.8.2",
     "react-scripts": "2.1.5"
   },
+  "build": {
+    "appId": "com.example.electron-cra",
+    "mac": {
+      "category": "public.app-category.electron-app"
+    },
+    "files": [
+      "build/**/*",
+      "node_modules/**/*"
+    ],
+    "directories": {
+      "buildResources": "assets"
+    }
+  },
   "scripts": {
     "start": "react-scripts start",
+    "postinstall": "build install-app-deps",
+    "electron-pack": "build --dir",
+    "preelectron-pack": "npm run-script build",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "electron-dev": "concurrently \"BROWSER=none npm start\" \"wait-on http://localhost:3000 && electron .\""
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -21,5 +43,11 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "concurrently": "^4.1.0",
+    "electron": "^4.1.1",
+    "electron-builder": "^20.39.0",
+    "wait-on": "^3.2.0"
+  }
 }
